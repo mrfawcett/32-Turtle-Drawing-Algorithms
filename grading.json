@@ -1,0 +1,8 @@
+[
+ {"test": "DrawPolygonTest",           "name": "drawPolygon (the 360.0 / sides rule)",        "points": 25},
+ {"test": "DrawStarTest",              "name": "drawStar",                                    "points": 10},
+ {"test": "DrawSpiralTest",            "name": "drawSpiral",                                  "points": 15},
+ {"test": "DrawFlowerTest",            "name": "drawFlower (nested loops)",                   "points": 25},
+ {"test": "DrawGridTest",              "name": "drawGrid",                                    "points": 15},
+ {"test": "DrawConcentricSquaresTest", "name": "drawConcentricSquares",                       "points": 10}
+]
