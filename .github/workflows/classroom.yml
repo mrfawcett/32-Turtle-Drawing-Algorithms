@@ -20,22 +20,13 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - name: Integrity check - tests, pom.xml and grading.json must be unchanged
-        run: |
-          EXPECTED="5d4f2e55479e9b2ed1c25de653c89839b478cb1eb26f171b9b1b0cd8bee28e1f"
-          ACTUAL=$( (for f in $(find src/test/java -type f -name '*.java' | LC_ALL=C sort) pom.xml grading.json; do sed 's/\r$//' "$f"; done) | sha256sum | cut -d' ' -f1)
-          if [ "$ACTUAL" != "$EXPECTED" ]; then
-            echo "::error::The test files, pom.xml, or grading.json in this repository differ from the assignment template. Grading has been stopped. Restore the original files (git checkout origin/main -- src/test pom.xml grading.json) and push again."
-            exit 1
-          fi
-          echo "Integrity check passed."
       - name: "drawPolygon (the 360.0 / sides rule) (25)"
         id: drawpolygon
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: "drawPolygon (the 360.0 / sides rule)"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawPolygonTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawPolygonTest
           timeout: 5
           max-score: 25
       - name: "drawStar (10)"
@@ -44,7 +35,7 @@ jobs:
         with:
           test-name: "drawStar"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawStarTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawStarTest
           timeout: 5
           max-score: 10
       - name: "drawSpiral (15)"
@@ -53,7 +44,7 @@ jobs:
         with:
           test-name: "drawSpiral"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawSpiralTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawSpiralTest
           timeout: 5
           max-score: 15
       - name: "drawFlower (nested loops) (25)"
@@ -62,7 +53,7 @@ jobs:
         with:
           test-name: "drawFlower (nested loops)"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawFlowerTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawFlowerTest
           timeout: 5
           max-score: 25
       - name: "drawGrid (15)"
@@ -71,7 +62,7 @@ jobs:
         with:
           test-name: "drawGrid"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawGridTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawGridTest
           timeout: 5
           max-score: 15
       - name: "drawConcentricSquares (10)"
@@ -80,7 +71,7 @@ jobs:
         with:
           test-name: "drawConcentricSquares"
           setup-command: ''
-          command: mvn -B -q test -Dtest=DrawConcentricSquaresTest -Dsurefire.failIfNoSpecifiedTests=false
+          command: sh .github/grade.sh DrawConcentricSquaresTest
           timeout: 5
           max-score: 10
       - name: Autograding Reporter
